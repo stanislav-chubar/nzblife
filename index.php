@@ -28,7 +28,7 @@ if (!empty($_SESSION['user_id'])) {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #060a10;
-            background: linear-gradient(160deg, #060a10 0%, #0a1a0f 40%, #060a10 70%, #081510 100%);
+            background: linear-gradient(160deg, #060a10 0%, #071009 50%, #060a10 80%, #070d0b 100%);
             background-attachment: fixed;
             font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
             font-size: 14px;
