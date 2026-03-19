@@ -277,24 +277,21 @@ if (!empty($_SESSION['user_id'])) {
 
             <p>The following is an example of an NZB 1.1 file.</p>
 
-            <div class="code-block"><pre><span class="cp">&lt;?xml version="1.0" encoding="iso-8859-1" ?&gt;</span>
-<span class="cp">&lt;!DOCTYPE nzb PUBLIC "-//newzBin//DTD NZB 1.1//EN" "http://www.newzbin.com/DTD/nzb/nzb-1.1.dtd"&gt;</span>
-<span class="nt">&lt;nzb</span> <span class="na">xmlns=</span><span class="s">"http://www.newzbin.com/DTD/2003/nzb"</span><span class="nt">&gt;</span>
- <span class="nt">&lt;head&gt;</span>
-   <span class="nt">&lt;meta</span> <span class="na">type=</span><span class="s">"title"</span><span class="nt">&gt;</span>Your File!<span class="nt">&lt;/meta&gt;</span>
-   <span class="nt">&lt;meta</span> <span class="na">type=</span><span class="s">"tag"</span><span class="nt">&gt;</span>Example<span class="nt">&lt;/meta&gt;</span>
- <span class="nt">&lt;/head&gt;</span>
- <span class="nt">&lt;file</span> <span class="na">poster=</span><span class="s">"Joe Bloggs &lt;bloggs@nowhere.example&gt;"</span> <span class="na">date=</span><span class="s">"1071674882"</span> <span class="na">subject=</span><span class="s">"Here's your file!  abc-mr2a.r01 (1/2)"</span><span class="nt">&gt;</span>
-   <span class="nt">&lt;groups&gt;</span>
-     <span class="nt">&lt;group&gt;</span>alt.binaries.newzbin<span class="nt">&lt;/group&gt;</span>
-     <span class="nt">&lt;group&gt;</span>alt.binaries.mojo<span class="nt">&lt;/group&gt;</span>
-   <span class="nt">&lt;/groups&gt;</span>
-   <span class="nt">&lt;segments&gt;</span>
-     <span class="nt">&lt;segment</span> <span class="na">bytes=</span><span class="s">"102394"</span> <span class="na">number=</span><span class="s">"1"</span><span class="nt">&gt;</span>123456789abcdef@news.newzbin.com<span class="nt">&lt;/segment&gt;</span>
-     <span class="nt">&lt;segment</span> <span class="na">bytes=</span><span class="s">"4501"</span> <span class="na">number=</span><span class="s">"2"</span><span class="nt">&gt;</span>987654321fedbca@news.newzbin.com<span class="nt">&lt;/segment&gt;</span>
-   <span class="nt">&lt;/segments&gt;</span>
- <span class="nt">&lt;/file&gt;</span>
-<span class="nt">&lt;/nzb&gt;</span></pre>
+            <div class="code-block"><pre>
+ xmlns="http://www.newzbin.com/DTD/2003/nzb">
+
+    type="title">Your File!
+    type="tag">Example
+
+  poster="Joe Bloggs " date="1071674882" subject="Here's your file!  abc-mr2a.r01 (1/2)">
+
+     alt.binaries.newzbin
+     alt.binaries.mojo
+
+
+      bytes="102394" number="1">123456789abcdef@news.newzbin.com
+      bytes="4501" number="2">987654321fedbca@news.newzbin.com
+</pre>
             </div>
 
         </div>
