@@ -28,10 +28,26 @@ if (!empty($_SESSION['user_id'])) {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #060a10;
+            background: linear-gradient(160deg, #060a10 0%, #0a1a0f 40%, #060a10 70%, #081510 100%);
+            background-attachment: fixed;
             font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
             font-size: 14px;
             color: #c8c8c8;
             min-height: 100vh;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b140d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(75, 178, 89, 0.9) 0%, rgba(55, 138, 68, 0.9) 100%);
+            border: 2px solid #0b140d;
+            border-radius: 10px;
         }
         a { color: #5ad7ff; text-decoration: none; }
         a:hover {
