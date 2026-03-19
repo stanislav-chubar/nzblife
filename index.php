@@ -20,18 +20,24 @@ if (!empty($_SESSION['user_id'])) {
     <meta name="keywords" content="nzb.life,usenet,nzb,indexing,content">
     <meta name="description" content="NZB indexing for usenet servers">
     <title><?= e(SITE_NAME) ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent: #3dff9e;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #0b1a2a;
-            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background: #060a10;
+            font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
             font-size: 14px;
             color: #c8c8c8;
             min-height: 100vh;
         }
-        a { color: #00e68a; text-decoration: none; }
-        a:hover { color: #33ffaa; }
+        a { color: #5ad7ff; text-decoration: none; }
+        a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
+        }
 
         /* Guest home layout */
         .guest-home {
@@ -39,6 +45,13 @@ if (!empty($_SESSION['user_id'])) {
             margin: 0 auto;
             padding: 40px 30px 60px;
             position: relative;
+        }
+
+        /* Content card */
+        .guest-card {
+            border: 1px solid rgba(93, 255, 180, 0.24);
+            border-radius: 6px;
+            padding: 36px 40px;
         }
 
         /* Top-right Login/Register buttons */
@@ -50,28 +63,27 @@ if (!empty($_SESSION['user_id'])) {
             gap: 8px;
             z-index: 100;
         }
-        .guest-toplinks .btn-login {
-            background: #00e68a;
-            color: #0b1a2a;
+        .guest-toplinks a {
+            background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #c8c8c8;
             padding: 6px 18px;
             font-family: 'Share Tech Mono', monospace;
             font-size: 13px;
-            font-weight: bold;
             border-radius: 4px;
-            border: none;
             cursor: pointer;
+            transition: all 0.15s;
         }
-        .guest-toplinks .btn-login:hover { background: #33ffaa; color: #0b1a2a; }
-        .guest-toplinks .btn-register {
-            background: transparent;
-            border: 1px solid #8899aa;
-            color: #8899aa;
-            padding: 6px 18px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 13px;
-            border-radius: 4px;
+        .guest-toplinks a:hover {
+            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+            border: 1px solid rgba(100, 210, 114, 0.42);
+            color: var(--accent);
+            text-shadow: none;
         }
-        .guest-toplinks .btn-register:hover { border-color: #00e68a; color: #00e68a; }
+        .guest-toplinks .btn-login {
+            background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+            color: #5ad7ff;
+        }
 
         /* Info table */
         .infobox {
@@ -82,44 +94,72 @@ if (!empty($_SESSION['user_id'])) {
         .infobox caption {
             text-align: left;
             font-size: 20px;
-            color: #c8c8c8;
+            color: #d7fbe6;
             padding-bottom: 16px;
         }
         .infobox th {
             text-align: left;
-            color: #00e68a;
+            color: #5ad7ff;
             font-weight: normal;
             padding: 4px 20px 4px 0;
             font-size: 13px;
             vertical-align: top;
             white-space: nowrap;
         }
+        .infobox th a {
+            color: #5ad7ff;
+        }
+        .infobox th a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
+        }
         .infobox td {
-            color: #8899aa;
+            color: #d7fbe6;
             padding: 4px 0;
             font-size: 13px;
             vertical-align: top;
         }
         .infobox td code {
-            color: #c8c8c8;
+            color: #d7fbe6 !important;
+            background: rgba(6, 14, 7, 0.98) !important;
+            border: 1px solid rgba(95, 206, 108, 0.32) !important;
+            border-radius: 3px;
+            padding: 2px 8px;
+            font-size: 13px;
+            display: inline-block;
         }
-        .infobox td a { color: #00e68a; }
+        .infobox td a { color: #5ad7ff; }
+        .infobox td a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
+        }
 
         /* Body content */
-        .content-body p {
-            color: #8899aa;
-            line-height: 1.9;
-            margin-bottom: 16px;
-            font-size: 13px;
+        .guest-index-body {
+            color: #d7fbe6;
+            line-height: 1.7;
+            font-size: 16px;
+            margin-top: 0;
+            padding: 2px 4px 6px;
         }
-        .content-body p a { color: #00e68a; }
+        .content-body p {
+            color: #d7fbe6;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        .content-body p a { color: #5ad7ff; }
+        .content-body p a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
+        }
         .content-body p b, .content-body p strong {
-            color: #c8c8c8;
+            color: #fff;
         }
 
         .content-body h2 {
-            color: #c8c8c8;
-            font-size: 18px;
+            color: #d7fbe6;
+            font-size: 24px;
             font-weight: normal;
             margin: 28px 0 14px;
         }
@@ -129,20 +169,38 @@ if (!empty($_SESSION['user_id'])) {
         }
 
         /* Code block */
-        .code-block {
-            background: #060e18;
-            border: 1px solid #1a3a4a;
-            border-radius: 4px;
-            padding: 20px;
-            overflow-x: auto;
-            font-size: 13px;
-            line-height: 1.7;
-            color: #8899aa;
+        code, pre, kbd, samp {
+            background: rgba(6, 14, 7, 0.98) !important;
+            border: 1px solid rgba(95, 206, 108, 0.32) !important;
+            color: #9dffaf !important;
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
         }
-        .cp { color: #00e68a; }
-        .nt { color: #00e68a; }
-        .na { color: #5599cc; }
-        .s  { color: #e6db74; }
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.42857143;
+            word-break: break-all;
+            word-wrap: break-word;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        .code-block {
+            background: rgba(6, 14, 7, 0.98);
+            border: 1px solid rgba(95, 206, 108, 0.32);
+            border-radius: 4px;
+            padding: 0;
+            overflow: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            border: none !important;
+        }
+        .cp { color: #9dffaf; }
+        .nt { color: #9dffaf; }
+        .na { color: #9dffaf; }
+        .s  { color: #9dffaf; }
     </style>
 </head>
 <body>
@@ -154,6 +212,7 @@ if (!empty($_SESSION['user_id'])) {
     </div>
 
     <div class="guest-home">
+        <div class="guest-card">
         <div class="content-body">
 
             <table class="infobox">
@@ -222,6 +281,7 @@ if (!empty($_SESSION['user_id'])) {
 <span class="nt">&lt;/nzb&gt;</span></pre>
             </div>
 
+        </div>
         </div>
     </div>
 
