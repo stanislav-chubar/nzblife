@@ -93,6 +93,12 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             color: var(--accent);
             text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
         }
+        /* Open state for dropdown toggle */
+        .nav-item.open {
+            background: linear-gradient(90deg, rgba(64, 210, 118, 0.26) 0%, rgba(44, 154, 92, 0.26) 100%);
+            color: #e8fff1;
+            border-color: rgba(120, 236, 141, 0.5);
+        }
         .nav-item i.fa-caret-down { font-size: 10px; }
         .nav-dropdown {
             display: none;
@@ -113,12 +119,13 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             padding: 10px 16px;
             color: #c8c8c8;
             font-size: 13px;
-            transition: background 0.15s, color 0.15s;
+            transition: background 0.15s, color 0.15s, border-color 0.15s, text-shadow 0.15s;
         }
         .nav-dropdown a:hover {
-            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
-            color: var(--accent);
-            text-shadow: none;
+            background: linear-gradient(90deg, rgba(61, 255, 158, 0.22) 0%, rgba(90, 215, 255, 0.20) 100%);
+            color: #c9fff4;
+            border-color: rgba(93, 255, 180, 0.34);
+            text-shadow: 0 0 10px rgba(61, 255, 158, 0.25);
         }
         .nav-dropdown a + a { border-top: 1px solid rgba(93, 255, 180, 0.1); }
 
