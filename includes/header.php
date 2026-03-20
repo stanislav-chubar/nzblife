@@ -242,7 +242,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         .notification-bar .dismiss {
             display: block;
             margin-top: 4px;
-            color: var(--accent);
+            color: var(--link);
             cursor: pointer;
             font-size: 13px;
         }
