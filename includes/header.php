@@ -137,13 +137,15 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             cursor: pointer;
         }
         .nav-submenu-label {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 10px 16px;
             color: #c8c8c8;
             font-size: 13px;
             transition: background 0.15s, color 0.15s;
         }
-        .nav-submenu-label i { font-size: 10px; margin-left: 4px; }
+        .nav-submenu-label i { font-size: 10px; }
         .nav-submenu-parent:hover > .nav-submenu-label {
             background: linear-gradient(90deg, rgba(61, 255, 158, 0.22) 0%, rgba(90, 215, 255, 0.20) 100%);
             color: #c9fff4;
@@ -151,15 +153,19 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         }
         .nav-submenu {
             display: none;
-            padding-left: 16px;
-            background: rgba(6, 12, 18, 0.6);
+            position: absolute;
+            left: 100%;
+            top: 0;
+            background: rgba(8, 16, 24, 0.98);
+            border: 1px solid var(--card-border);
+            border-radius: 4px;
+            min-width: 120px;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            padding: 4px 0;
         }
         .nav-submenu.open { display: block; }
-        .nav-submenu a {
-            padding: 8px 16px;
-            font-size: 12px;
-        }
-        .nav-submenu a + a { border-top: 1px solid rgba(93, 255, 180, 0.06); }
+        .nav-submenu a + a { border-top: 1px solid rgba(93, 255, 180, 0.1); }
 
         /* User avatar */
         .nav-avatar {
