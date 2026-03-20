@@ -82,13 +82,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - <?= e(SITE_NAME) ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
+        :root {
+            --accent: #3dff9e;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #0b1a2a;
-            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background: #060a10;
+            background: linear-gradient(160deg, #060a10 0%, #071009 50%, #060a10 80%, #070d0b 100%);
+            background-attachment: fixed;
+            font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
             font-size: 14px;
             color: #c8c8c8;
             min-height: 100vh;
@@ -97,41 +102,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
             padding: 40px 20px;
         }
-        a { color: #00e68a; text-decoration: none; }
-        a:hover { color: #33ffaa; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #0b140d; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(75, 178, 89, 0.9) 0%, rgba(55, 138, 68, 0.9) 100%);
+            border: 2px solid #0b140d;
+            border-radius: 10px;
+        }
+
+        a { color: #5ad7ff; text-decoration: none; }
+        a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
+        }
 
         .auth-card {
-            background: #0d2137;
-            border: 1px solid #1a3a4a;
-            border-radius: 8px;
+            border: 1px solid rgba(93, 255, 180, 0.24);
+            border-radius: 6px;
             padding: 35px 40px;
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
         }
         .auth-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
         .auth-header i {
-            color: #00e68a;
-            font-size: 22px;
+            color: var(--accent);
+            font-size: 28px;
         }
         .auth-header h1 {
-            color: #fff;
-            font-size: 22px;
-            font-weight: normal;
+            color: #d7fbe6;
+            font-size: 26px;
+            font-weight: 700;
         }
         .auth-subtitle {
-            color: #6a7a8a;
-            font-size: 12px;
+            color: #8899aa;
+            font-size: 13px;
             margin-bottom: 24px;
+            line-height: 1.6;
         }
         .form-label {
             display: block;
-            color: #8899aa;
-            font-size: 13px;
+            color: #d7fbe6;
+            font-size: 14px;
+            font-weight: 700;
             margin-bottom: 8px;
         }
         .input-with-icon {
@@ -143,57 +162,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #00e68a;
+            color: var(--accent);
             font-size: 14px;
         }
         .input-with-icon input {
             width: 100%;
-            background: #0a1525;
-            border: 1px solid #1a3a4a;
+            background: rgba(6, 14, 7, 0.6);
+            border: 1px solid rgba(93, 255, 180, 0.24);
             color: #c8c8c8;
-            padding: 11px 14px 11px 38px;
-            font-family: 'Share Tech Mono', monospace;
+            padding: 11px 14px 11px 40px;
+            font-family: "JetBrains Mono", "Fira Code", monospace;
             font-size: 14px;
             border-radius: 4px;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .input-with-icon input:focus { border-color: #00e68a; }
-        .input-with-icon input::placeholder { color: #3a4a5a; }
+        .input-with-icon input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(61, 255, 158, 0.15);
+        }
+        .input-with-icon input::placeholder { color: #4a5a6a; }
 
         .field-hint {
-            color: #5a6a7a;
-            font-size: 11px;
+            color: #8899aa;
+            font-size: 12px;
             margin-bottom: 16px;
             padding-left: 2px;
+            line-height: 1.6;
         }
 
         .btn-row {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             margin-bottom: 18px;
-            margin-top: 6px;
+            margin-top: 8px;
         }
         .btn {
-            padding: 10px 24px;
-            font-family: 'Share Tech Mono', monospace;
+            padding: 8px 20px;
+            font-family: "JetBrains Mono", "Fira Code", monospace;
             font-size: 14px;
             border-radius: 4px;
             cursor: pointer;
-            border: none;
+            transition: all 0.15s;
         }
-        .btn-green {
-            background: #00e68a;
-            color: #0b1a2a;
-            font-weight: bold;
+        .btn-register {
+            background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #c8c8c8;
         }
-        .btn-green:hover { background: #33ffaa; }
-        .back-link {
-            color: #6a7a8a;
-            font-size: 13px;
+        .btn-register:hover {
+            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+            border: 1px solid rgba(100, 210, 114, 0.42);
+            color: var(--accent);
         }
-        .back-link:hover { color: #00e68a; }
+        .btn-back {
+            background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #5ad7ff;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-back:hover {
+            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+            border: 1px solid rgba(100, 210, 114, 0.42);
+            color: var(--accent);
+            text-shadow: none;
+        }
 
         .turnstile-row {
             margin-bottom: 18px;
@@ -207,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .flash-error {
             background: rgba(255, 60, 60, 0.1);
-            border: 1px solid #5a2020;
+            border: 1px solid rgba(255, 60, 60, 0.3);
             color: #ff6666;
         }
     </style>
@@ -228,20 +263,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" action="register.php">
             <?= csrf_input() ?>
 
-            <label class="form-label">Username</label>
+            <label class="form-label">User Name</label>
             <div class="input-with-icon">
                 <i class="fas fa-user icon"></i>
                 <input type="text" name="username" placeholder="Choose your user name" required
                        value="<?= e($_POST['username'] ?? '') ?>">
             </div>
-            <p class="field-hint">Would be at least three characters and start with a letter.</p>
+            <p class="field-hint">Should be at least three characters and start with a letter.</p>
 
             <label class="form-label">Password</label>
             <div class="input-with-icon">
                 <i class="fas fa-key icon"></i>
-                <input type="password" name="password" placeholder="Select a password to use" required>
+                <input type="password" name="password" placeholder="Specify a password to use" required>
             </div>
-            <p class="field-hint">Would be at least six characters long.</p>
+            <p class="field-hint">Should be at least six characters long.</p>
 
             <label class="form-label">Confirm Password</label>
             <div class="input-with-icon">
@@ -259,8 +294,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="field-hint">&nbsp;</p>
 
             <div class="btn-row">
-                <button type="submit" class="btn btn-green">Register</button>
-                <a href="login.php" class="back-link">Back to Login</a>
+                <button type="submit" class="btn btn-register">Register</button>
+                <a href="login.php" class="btn btn-back">Back To Login</a>
             </div>
 
             <?php if (TURNSTILE_SITE_KEY): ?>
