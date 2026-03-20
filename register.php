@@ -155,13 +155,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .input-with-icon {
             position: relative;
+            display: flex;
+            align-items: stretch;
             margin-bottom: 4px;
         }
-        .input-with-icon .icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
+        .input-with-icon .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            min-width: 42px;
+            background: rgba(6, 14, 7, 0.8);
+            border: 1px solid rgba(93, 255, 180, 0.24);
+            border-right: none;
+            border-radius: 4px 0 0 4px;
             color: var(--accent);
             font-size: 14px;
         }
@@ -169,13 +176,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
             background: rgba(6, 14, 7, 0.6);
             border: 1px solid rgba(93, 255, 180, 0.24);
+            border-left: none;
             color: #c8c8c8;
-            padding: 11px 14px 11px 40px;
+            padding: 11px 14px;
             font-family: "JetBrains Mono", "Fira Code", monospace;
             font-size: 14px;
-            border-radius: 4px;
+            border-radius: 0 4px 4px 0;
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-with-icon:focus-within .icon-box {
+            border-color: var(--accent);
         }
         .input-with-icon input:focus {
             border-color: var(--accent);
@@ -265,7 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label class="form-label">User Name</label>
             <div class="input-with-icon">
-                <i class="fas fa-user icon"></i>
+                <span class="icon-box"><i class="fas fa-user"></i></span>
                 <input type="text" name="username" placeholder="Choose your user name" required
                        value="<?= e($_POST['username'] ?? '') ?>">
             </div>
@@ -273,21 +284,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label class="form-label">Password</label>
             <div class="input-with-icon">
-                <i class="fas fa-key icon"></i>
+                <span class="icon-box"><i class="fas fa-asterisk"></i></span>
                 <input type="password" name="password" placeholder="Specify a password to use" required>
             </div>
             <p class="field-hint">Should be at least six characters long.</p>
 
             <label class="form-label">Confirm Password</label>
             <div class="input-with-icon">
-                <i class="fas fa-key icon"></i>
+                <span class="icon-box"><i class="fas fa-asterisk"></i></span>
                 <input type="password" name="confirm_password" placeholder="Confirm your password" required>
             </div>
             <p class="field-hint">&nbsp;</p>
 
             <label class="form-label">Email Address</label>
             <div class="input-with-icon">
-                <i class="fas fa-at icon"></i>
+                <span class="icon-box"><i class="fas fa-at"></i></span>
                 <input type="email" name="email" placeholder="Your email address" required
                        value="<?= e($_POST['email'] ?? '') ?>">
             </div>
