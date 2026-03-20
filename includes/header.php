@@ -14,28 +14,51 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($page_title) ?> - <?= e(SITE_NAME) ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --accent: #3dff9e;
+            --bg: #060a10;
+            --card-border: rgba(93, 255, 180, 0.24);
+            --text: #d7fbe6;
+            --text-muted: #8899aa;
+            --link: #5ad7ff;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #0b1a2a;
-            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background: var(--bg);
+            background: linear-gradient(160deg, #060a10 0%, #071009 50%, #060a10 80%, #070d0b 100%);
+            background-attachment: fixed;
+            font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace !important;
             font-size: 14px;
             color: #c8c8c8;
             min-height: 100vh;
         }
-        a { color: #00e68a; text-decoration: none; }
-        a:hover { color: #33ffaa; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #0b140d; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(75, 178, 89, 0.9) 0%, rgba(55, 138, 68, 0.9) 100%);
+            border: 2px solid #0b140d;
+            border-radius: 10px;
+        }
+
+        a { color: var(--link); text-decoration: none; }
+        a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
+        }
 
         /* Navbar */
         .navbar {
-            background: #0b1a2a;
-            border-bottom: 1px solid #0f2a3a;
+            background: rgba(6, 10, 16, 0.95);
+            border-bottom: 1px solid rgba(93, 255, 180, 0.1);
             padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 50px;
+            height: 52px;
         }
         .navbar-left {
             display: flex;
@@ -45,10 +68,10 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         .navbar-logo {
             display: flex;
             align-items: center;
-            margin-right: 10px;
+            margin-right: 14px;
         }
         .navbar-logo img {
-            height: 32px;
+            height: 34px;
         }
         .nav-items {
             display: flex;
@@ -58,7 +81,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         .nav-item {
             position: relative;
             padding: 14px 14px;
-            color: #8899aa;
+            color: var(--text-muted);
             font-size: 14px;
             cursor: pointer;
             transition: color 0.15s, background 0.15s;
@@ -67,8 +90,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             gap: 6px;
         }
         .nav-item:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.05);
+            color: var(--accent);
         }
         .nav-item i.fa-caret-down { font-size: 10px; }
         .nav-dropdown {
@@ -76,12 +98,12 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             position: absolute;
             top: 100%;
             left: 0;
-            background: #0d2137;
-            border: 1px solid #1a3a4a;
+            background: rgba(8, 16, 24, 0.98);
+            border: 1px solid var(--card-border);
             border-radius: 4px;
             min-width: 180px;
             z-index: 999;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
         }
         .nav-dropdown.open { display: block; }
         .nav-dropdown a {
@@ -92,25 +114,25 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             transition: background 0.15s;
         }
         .nav-dropdown a:hover {
-            background: rgba(0,230,138,0.1);
-            color: #00e68a;
+            background: rgba(61, 255, 158, 0.08);
+            color: var(--accent);
+            text-shadow: none;
         }
-        .nav-dropdown a + a { border-top: 1px solid #1a3a4a; }
+        .nav-dropdown a + a { border-top: 1px solid rgba(93, 255, 180, 0.1); }
 
         /* User avatar */
         .nav-avatar {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background: #00e68a;
-            color: #0b1a2a;
+            background: var(--accent);
+            color: var(--bg);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 14px;
             cursor: pointer;
-            margin-left: 6px;
         }
 
         /* Search bar */
@@ -125,32 +147,34 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             gap: 0;
         }
         .nav-search select {
-            background: #0d2137;
-            color: #8899aa;
-            border: 1px solid #1a3a4a;
+            background: rgba(6, 14, 7, 0.8);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
             padding: 6px 10px;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: "JetBrains Mono", monospace;
             font-size: 13px;
             border-radius: 4px 0 0 4px;
             outline: none;
             height: 34px;
+            cursor: pointer;
         }
         .nav-search input {
-            background: #0d2137;
+            background: rgba(6, 14, 7, 0.6);
             color: #c8c8c8;
-            border: 1px solid #1a3a4a;
+            border: 1px solid var(--card-border);
             border-left: none;
             padding: 6px 12px;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: "JetBrains Mono", monospace;
             font-size: 13px;
             width: 180px;
             outline: none;
             height: 34px;
         }
-        .nav-search input::placeholder { color: #5a6a7a; }
+        .nav-search input::placeholder { color: #4a5a6a; }
+        .nav-search input:focus { border-color: var(--accent); }
         .nav-search button {
-            background: #00e68a;
-            color: #0b1a2a;
+            background: var(--accent);
+            color: var(--bg);
             border: none;
             padding: 6px 12px;
             cursor: pointer;
@@ -159,8 +183,9 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             height: 34px;
             display: flex;
             align-items: center;
+            transition: background 0.15s;
         }
-        .nav-search button:hover { background: #33ffaa; }
+        .nav-search button:hover { background: #66ffbb; }
 
         /* Auth buttons (public pages) */
         .nav-auth {
@@ -171,44 +196,63 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             padding: 6px 18px;
             font-size: 13px;
             border-radius: 4px;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: "JetBrains Mono", monospace;
+            transition: all 0.15s;
         }
-        .btn-login {
-            background: #00e68a;
-            color: #0b1a2a !important;
-            font-weight: bold;
+        .nav-auth .btn-login {
+            background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #5ad7ff !important;
         }
-        .btn-login:hover { background: #33ffaa; }
-        .btn-register {
-            background: transparent;
-            border: 1px solid #00e68a;
-            color: #00e68a !important;
+        .nav-auth .btn-login:hover {
+            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+            border-color: rgba(100, 210, 114, 0.42);
+            color: var(--accent) !important;
+            text-shadow: none;
         }
-        .btn-register:hover { background: rgba(0,230,138,0.1); }
+        .nav-auth .btn-register {
+            background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #c8c8c8 !important;
+        }
+        .nav-auth .btn-register:hover {
+            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+            border-color: rgba(100, 210, 114, 0.42);
+            color: var(--accent) !important;
+            text-shadow: none;
+        }
 
         /* Notification bar */
         .notification-bar {
-            background: rgba(0,230,138,0.05);
-            border: 1px solid #1a5a3a;
+            background: rgba(61, 255, 158, 0.04);
+            border: 1px solid rgba(93, 255, 180, 0.24);
             border-radius: 4px;
             padding: 14px 20px;
             margin: 16px 20px 0;
-            color: #00e68a;
-            font-size: 13px;
-            line-height: 1.6;
+            color: var(--accent);
+            font-size: 14px;
+            line-height: 1.7;
         }
-        .notification-bar a { color: #00e68a; text-decoration: underline; }
+        .notification-bar a {
+            color: var(--link);
+        }
+        .notification-bar a:hover {
+            color: var(--accent);
+        }
         .notification-bar .dismiss {
             display: block;
             margin-top: 4px;
-            color: #00e68a;
+            color: var(--accent);
             cursor: pointer;
-            text-decoration: underline;
+            font-size: 13px;
+        }
+        .notification-bar .dismiss:hover {
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
         }
 
         /* Content wrapper */
         .page-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 30px 20px 40px;
         }
@@ -222,91 +266,31 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         }
         .flash-error {
             background: rgba(255, 60, 60, 0.1);
-            border: 1px solid #5a2020;
+            border: 1px solid rgba(255, 60, 60, 0.3);
             color: #ff6666;
         }
         .flash-success {
-            background: rgba(0, 230, 138, 0.1);
-            border: 1px solid #1a5a3a;
-            color: #00e68a;
+            background: rgba(61, 255, 158, 0.06);
+            border: 1px solid rgba(93, 255, 180, 0.3);
+            color: var(--accent);
         }
 
         /* Headings */
         h1, h2, h3 {
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: normal;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 8px 22px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: none;
-            transition: background 0.15s;
-        }
-        .btn-green {
-            background: #00e68a;
-            color: #0b1a2a;
-            font-weight: bold;
-        }
-        .btn-green:hover { background: #33ffaa; }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #00e68a;
-            color: #00e68a;
-        }
-        .btn-outline:hover { background: rgba(0,230,138,0.1); }
-        .btn-dark {
-            background: #1a2a3a;
-            border: 1px solid #2a3a4a;
-            color: #c8c8c8;
-        }
-        .btn-dark:hover { background: #2a3a4a; }
-
-        /* Form inputs */
-        .form-input {
-            width: 100%;
-            background: #0a1525;
-            border: 1px solid #1a3a4a;
-            color: #c8c8c8;
-            padding: 10px 14px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 14px;
-            border-radius: 4px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .form-input:focus { border-color: #00e68a; }
-        .form-input::placeholder { color: #4a5a6a; }
-        .input-with-icon {
-            position: relative;
-        }
-        .input-with-icon .input-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #00e68a;
-            font-size: 14px;
-        }
-        .input-with-icon .form-input {
-            padding-left: 38px;
+            font-family: "JetBrains Mono", monospace;
         }
 
         /* Footer */
         .site-footer {
             text-align: center;
             padding: 30px 20px;
-            color: #5a6a7a;
+            color: #4a5a6a;
             font-size: 12px;
-            border-top: 1px solid #0f2a3a;
+            border-top: 1px solid rgba(93, 255, 180, 0.1);
             margin-top: 40px;
         }
-        .site-footer a { color: #00e68a; }
+        .site-footer a { color: var(--link); }
+        .site-footer p { margin-bottom: 4px; }
     </style>
     <?php if (isset($extra_css)) echo $extra_css; ?>
 </head>
@@ -321,7 +305,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             <?php if ($is_logged_in): ?>
             <div class="nav-items">
                 <div class="nav-item" onclick="toggleDropdown(this)">
-                    <i class="fas fa-bars"></i> Menu <i class="fas fa-caret-down"></i>
+                    Menu <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
                         <a href="dashboard.php"><i class="fas fa-home"></i>&nbsp; Home</a>
                         <a href="browse.php"><i class="fas fa-list"></i>&nbsp; Browse</a>
@@ -329,7 +313,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
-                    <i class="fas fa-film"></i> Movies <i class="fas fa-caret-down"></i>
+                    <i class="fas fa-th"></i> Movies <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
                         <a href="browse.php?cat=movies">All Movies</a>
                         <a href="browse.php?cat=movies-hd">HD</a>
@@ -338,7 +322,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
-                    <i class="fas fa-tv"></i> TV <i class="fas fa-caret-down"></i>
+                    <i class="fas fa-desktop"></i> TV <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
                         <a href="browse.php?cat=tv">All TV</a>
                         <a href="browse.php?cat=tv-hd">HD</a>
@@ -354,7 +338,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
-                    <i class="fas fa-th"></i> Misc <i class="fas fa-caret-down"></i>
+                    <i class="fas fa-th-large"></i> Misc <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
                         <a href="browse.php?cat=misc">All Misc</a>
                         <a href="browse.php?cat=misc-games">Games</a>
