@@ -6,6 +6,7 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/sendgrid.php';
 
 $page_title = 'Contact ' . SITE_NAME;
+$hide_notification = true;
 $error = '';
 $success = '';
 
@@ -33,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $extra_css = '<style>
+    .contact-card .notification-bar {
+        margin: 0 0 20px;
+    }
     .contact-card {
         max-width: 900px;
         margin: 0 auto;
@@ -133,6 +137,13 @@ include __DIR__ . '/includes/header.php';
 
     <div class="page-content">
         <div class="contact-card">
+            <?php if (isset($current_user) && $current_user): ?>
+            <div class="notification-bar" id="notificationBar">
+                Thank you for registering, please feel free to look around. You cannot download or use the API without an upgraded account (<a href="vip.php">upgrade your account</a>). Free accounts are automatically removed after a few days.
+                <span class="dismiss" onclick="document.getElementById('notificationBar').style.display='none'">Dismiss</span>
+            </div>
+            <?php endif; ?>
+
             <?= render_flash() ?>
 
             <h1 class="contact-heading">Contact <?= e(SITE_NAME) ?></h1>
