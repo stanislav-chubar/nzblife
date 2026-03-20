@@ -21,11 +21,7 @@
             el.classList.toggle('open');
         }
     }
-    function toggleSubmenu(el) {
-        var sub = el.querySelector('.nav-submenu');
-        if (sub) sub.classList.toggle('open');
-    }
-    document.addEventListener('click', function(e) {
+document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-item')) {
             document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
                 d.classList.remove('open');

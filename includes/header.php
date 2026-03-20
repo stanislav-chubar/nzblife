@@ -164,7 +164,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             box-shadow: 0 6px 20px rgba(0,0,0,0.6);
             padding: 4px 0;
         }
-        .nav-submenu.open { display: block; }
+        .nav-submenu-parent:hover > .nav-submenu { display: block; }
         .nav-submenu a + a { border-top: 1px solid rgba(93, 255, 180, 0.1); }
 
         /* User avatar */
@@ -404,7 +404,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <span class="nav-avatar"><?= e($current_user['initial']) ?></span> <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <div class="nav-submenu-parent" onclick="event.stopPropagation(); toggleSubmenu(this)">
+                        <div class="nav-submenu-parent">
                             <span class="nav-submenu-label">Profile <i class="fas fa-caret-right"></i></span>
                             <div class="nav-submenu">
                                 <a href="profile.php">View</a>
