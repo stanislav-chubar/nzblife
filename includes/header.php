@@ -224,12 +224,12 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
 
         /* Notification bar */
         .notification-bar {
-            background: rgba(61, 255, 158, 0.04);
-            border: 1px solid rgba(93, 255, 180, 0.24);
+            background: linear-gradient(180deg, rgba(18, 44, 28, 0.96) 0%, rgba(12, 30, 19, 0.96) 100%);
+            border: 1px solid rgba(112, 233, 140, 0.42);
             border-radius: 4px;
             padding: 14px 20px;
             margin: 16px 20px 0;
-            color: var(--accent);
+            color: #cbffd7;
             font-size: 14px;
             line-height: 1.7;
         }
