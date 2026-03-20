@@ -117,18 +117,18 @@ $extra_css = '<style>
     .submit-btn {
         display: inline-block;
         padding: 10px 28px;
-        background: rgba(6, 14, 7, 0.6);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 4px;
-        color: #c8c8c8;
+        color: var(--text);
         font-family: "JetBrains Mono", monospace;
         font-size: 14px;
         cursor: pointer;
         transition: all 0.15s;
     }
     .submit-btn:hover {
-        background: rgba(61, 255, 158, 0.1);
-        border-color: var(--accent);
+        background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+        border-color: rgba(100, 210, 114, 0.42);
         color: var(--accent);
     }
 </style>';
