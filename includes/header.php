@@ -194,45 +194,62 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             gap: 0;
         }
         .nav-search select {
-            background: rgba(6, 14, 7, 0.8);
-            color: var(--text-muted);
-            border: 1px solid var(--card-border);
-            padding: 6px 10px;
+            background: linear-gradient(180deg, rgba(8, 18, 10, 0.98) 0%, rgba(6, 13, 8, 0.98) 100%);
+            background-image: linear-gradient(45deg, transparent 50%, rgba(160, 255, 178, 0.95) 50%), linear-gradient(135deg, rgba(160, 255, 178, 0.95) 50%, transparent 50%), linear-gradient(180deg, rgba(8, 14, 9, 0.98) 0%, rgba(5, 10, 6, 0.99) 100%);
+            background-position: calc(100% - 14px) calc(50% - 1px), calc(100% - 9px) calc(50% - 1px), 0 0;
+            background-size: 5px 5px, 5px 5px, 100% 100%;
+            background-repeat: no-repeat;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            color: #c9ffd2;
+            border: 1px solid rgba(88, 196, 102, 0.44);
+            padding: 4px 28px 4px 8px;
             font-family: "JetBrains Mono", monospace;
             font-size: 13px;
             border-radius: 4px 0 0 4px;
             outline: none;
-            height: 34px;
+            height: 30px;
+            min-height: 30px;
+            line-height: 20px;
             cursor: pointer;
         }
+        .nav-search select option.grouping {
+            font-weight: bold;
+            color: #c9ffd2;
+        }
         .nav-search input {
-            background: rgba(6, 14, 7, 0.6);
-            color: #c8c8c8;
-            border: 1px solid var(--card-border);
+            background: linear-gradient(180deg, rgba(8, 18, 10, 0.98) 0%, rgba(6, 13, 8, 0.98) 100%);
+            color: #c9ffd2;
+            border: 1px solid rgba(88, 196, 102, 0.44);
             border-left: none;
-            padding: 6px 12px;
+            padding: 4px 12px;
             font-family: "JetBrains Mono", monospace;
             font-size: 13px;
             width: 180px;
             outline: none;
-            height: 34px;
+            height: 30px;
         }
         .nav-search input::placeholder { color: #4a5a6a; }
         .nav-search input:focus { border-color: var(--accent); }
         .nav-search button {
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            padding: 6px 12px;
+            background: linear-gradient(180deg, rgba(8, 18, 10, 0.98) 0%, rgba(6, 13, 8, 0.98) 100%);
+            color: var(--accent);
+            border: 1px solid rgba(88, 196, 102, 0.44);
+            border-left: none;
+            padding: 4px 12px;
             cursor: pointer;
             border-radius: 0 4px 4px 0;
             font-size: 14px;
-            height: 34px;
+            height: 30px;
             display: flex;
             align-items: center;
-            transition: background 0.15s;
+            transition: all 0.15s;
         }
-        .nav-search button:hover { background: #66ffbb; }
+        .nav-search button:hover {
+            background: rgba(61, 255, 158, 0.1);
+            color: #66ffbb;
+        }
 
         /* Auth buttons (public pages) */
         .nav-auth {
@@ -421,14 +438,56 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         <div class="navbar-right">
             <?php if ($is_logged_in): ?>
             <form class="nav-search" action="browse.php" method="GET">
-                <select name="cat">
-                    <option value="all">All</option>
-                    <option value="movies">Movies</option>
-                    <option value="tv">TV</option>
-                    <option value="books">Books</option>
-                    <option value="misc">Misc</option>
+                <select name="t">
+                    <option class="grouping" value="-1">All</option>
+                    <option class="grouping" value="1000">Console</option>
+                    <option value="1070">&nbsp;&nbsp;360 DLC</option>
+                    <option value="1010">&nbsp;&nbsp;NDS</option>
+                    <option value="1080">&nbsp;&nbsp;PS3</option>
+                    <option value="1100">&nbsp;&nbsp;PS4</option>
+                    <option value="1020">&nbsp;&nbsp;PSP</option>
+                    <option value="1040">&nbsp;&nbsp;Switch</option>
+                    <option value="1030">&nbsp;&nbsp;Wii</option>
+                    <option value="1060">&nbsp;&nbsp;WiiWare</option>
+                    <option value="1050">&nbsp;&nbsp;Xbox 360</option>
+                    <option value="1090">&nbsp;&nbsp;Xbox One</option>
+                    <option class="grouping" value="2000">Movies</option>
+                    <option value="2010">&nbsp;&nbsp;Foreign</option>
+                    <option value="2040">&nbsp;&nbsp;HD</option>
+                    <option value="2020">&nbsp;&nbsp;Other</option>
+                    <option value="2030">&nbsp;&nbsp;SD</option>
+                    <option value="2045">&nbsp;&nbsp;UHD</option>
+                    <option class="grouping" value="3000">Audio</option>
+                    <option value="3030">&nbsp;&nbsp;Books</option>
+                    <option value="3040">&nbsp;&nbsp;Lossless</option>
+                    <option value="3010">&nbsp;&nbsp;MP3</option>
+                    <option value="3020">&nbsp;&nbsp;Video</option>
+                    <option class="grouping" value="4000">PC</option>
+                    <option value="4010">&nbsp;&nbsp;0day</option>
+                    <option value="4070">&nbsp;&nbsp;Android</option>
+                    <option value="4050">&nbsp;&nbsp;Games</option>
+                    <option value="4020">&nbsp;&nbsp;ISO</option>
+                    <option value="4030">&nbsp;&nbsp;Mac</option>
+                    <option value="4040">&nbsp;&nbsp;Mobile</option>
+                    <option value="4060">&nbsp;&nbsp;iOS</option>
+                    <option class="grouping" value="5000">TV</option>
+                    <option value="5070">&nbsp;&nbsp;Anime</option>
+                    <option value="5080">&nbsp;&nbsp;Doc</option>
+                    <option value="5020">&nbsp;&nbsp;Foreign</option>
+                    <option value="5040">&nbsp;&nbsp;HD</option>
+                    <option value="5050">&nbsp;&nbsp;Other</option>
+                    <option value="5030">&nbsp;&nbsp;SD</option>
+                    <option value="5060">&nbsp;&nbsp;Sport</option>
+                    <option value="5045">&nbsp;&nbsp;UHD</option>
+                    <option class="grouping" value="7000">Books</option>
+                    <option value="7030">&nbsp;&nbsp;Comics</option>
+                    <option value="7020">&nbsp;&nbsp;Ebook</option>
+                    <option value="7010">&nbsp;&nbsp;Mags</option>
+                    <option class="grouping" value="8000">Misc</option>
+                    <option value="8010">&nbsp;&nbsp;Other</option>
+                    <option value="8050">&nbsp;&nbsp;Spam</option>
                 </select>
-                <input type="text" name="q" placeholder="Keyword Search">
+                <input type="text" name="search" placeholder="Keyword Search">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
             <?php else: ?>
