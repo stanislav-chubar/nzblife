@@ -127,7 +127,39 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             border-color: rgba(93, 255, 180, 0.34);
             text-shadow: 0 0 10px rgba(61, 255, 158, 0.25);
         }
-        .nav-dropdown a + a { border-top: 1px solid rgba(93, 255, 180, 0.1); }
+        .nav-dropdown a + a,
+        .nav-dropdown .nav-submenu-parent + a,
+        .nav-dropdown a + .nav-submenu-parent { border-top: 1px solid rgba(93, 255, 180, 0.1); }
+
+        /* Submenu */
+        .nav-submenu-parent {
+            position: relative;
+            cursor: pointer;
+        }
+        .nav-submenu-label {
+            display: block;
+            padding: 10px 16px;
+            color: #c8c8c8;
+            font-size: 13px;
+            transition: background 0.15s, color 0.15s;
+        }
+        .nav-submenu-label i { font-size: 10px; margin-left: 4px; }
+        .nav-submenu-parent:hover > .nav-submenu-label {
+            background: linear-gradient(90deg, rgba(61, 255, 158, 0.22) 0%, rgba(90, 215, 255, 0.20) 100%);
+            color: #c9fff4;
+            text-shadow: 0 0 10px rgba(61, 255, 158, 0.25);
+        }
+        .nav-submenu {
+            display: none;
+            padding-left: 16px;
+            background: rgba(6, 12, 18, 0.6);
+        }
+        .nav-submenu.open { display: block; }
+        .nav-submenu a {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        .nav-submenu a + a { border-top: 1px solid rgba(93, 255, 180, 0.06); }
 
         /* User avatar */
         .nav-avatar {
@@ -316,9 +348,8 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     Menu <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="dashboard.php"><i class="fas fa-home"></i>&nbsp; Home</a>
-                        <a href="browse.php"><i class="fas fa-list"></i>&nbsp; Browse</a>
-                        <a href="contact.php"><i class="fas fa-envelope"></i>&nbsp; Contact</a>
+                        <a href="vip.php">Get VIP!</a>
+                        <a href="contact.php">Contact Us</a>
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
@@ -339,7 +370,10 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                         <a href="browse.php?cat=tv-sd">SD</a>
                         <a href="browse.php?cat=tv-hd">HD</a>
                         <a href="browse.php?cat=tv-uhd">UHD</a>
+                        <a href="browse.php?cat=tv-anime">Anime</a>
                         <a href="browse.php?cat=tv-foreign">Foreign</a>
+                        <a href="browse.php?cat=tv-sport">Sport</a>
+                        <a href="browse.php?cat=tv-doc">Doc</a>
                         <a href="browse.php?cat=tv-other">Other</a>
                     </div>
                 </div>
@@ -347,18 +381,16 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                     <i class="fas fa-book"></i> Books <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
                         <a href="browse.php?cat=books">Browse All</a>
-                        <a href="browse.php?cat=books-ebook">eBooks</a>
                         <a href="browse.php?cat=books-comics">Comics</a>
-                        <a href="browse.php?cat=books-mags">Magazines</a>
-                        <a href="browse.php?cat=books-other">Other</a>
+                        <a href="browse.php?cat=books-ebook">Ebook</a>
+                        <a href="browse.php?cat=books-mags">Mags</a>
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <i class="fas fa-th-large"></i> Misc <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="browse.php?cat=misc">Browse All</a>
-                        <a href="browse.php?cat=misc-games">Games</a>
-                        <a href="browse.php?cat=misc-apps">Apps</a>
+                        <a href="browse.php?cat=misc-pc">PC</a>
+                        <a href="browse.php?cat=misc-console">Console</a>
                         <a href="browse.php?cat=misc-audio">Music</a>
                         <a href="browse.php?cat=misc-other">Other</a>
                     </div>
@@ -366,10 +398,15 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <span class="nav-avatar"><?= e($current_user['initial']) ?></span> <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="profile.php"><i class="fas fa-user"></i>&nbsp; Profile</a>
-                        <a href="profile_edit.php"><i class="fas fa-pen"></i>&nbsp; Edit Profile</a>
-                        <a href="vip.php"><i class="fas fa-star"></i>&nbsp; Upgrade VIP</a>
-                        <a href="logout.php"><i class="fas fa-sign-out-alt"></i>&nbsp; Logout</a>
+                        <div class="nav-submenu-parent" onclick="event.stopPropagation(); toggleSubmenu(this)">
+                            <span class="nav-submenu-label">Profile <i class="fas fa-caret-right"></i></span>
+                            <div class="nav-submenu">
+                                <a href="profile.php">View</a>
+                                <a href="profile_edit.php">Edit</a>
+                            </div>
+                        </div>
+                        <a href="cart.php">Cart</a>
+                        <a href="logout.php">Logout</a>
                     </div>
                 </div>
             </div>
