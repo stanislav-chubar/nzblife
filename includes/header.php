@@ -193,8 +193,11 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             align-items: center;
             gap: 0;
         }
+        .nav-search {
+            gap: 6px;
+        }
         .nav-search select {
-            background: linear-gradient(180deg, rgba(8, 18, 10, 0.98) 0%, rgba(6, 13, 8, 0.98) 100%);
+            background-color: #070c08;
             background-image: linear-gradient(45deg, transparent 50%, rgba(160, 255, 178, 0.95) 50%), linear-gradient(135deg, rgba(160, 255, 178, 0.95) 50%, transparent 50%), linear-gradient(180deg, rgba(8, 14, 9, 0.98) 0%, rgba(5, 10, 6, 0.99) 100%);
             background-position: calc(100% - 14px) calc(50% - 1px), calc(100% - 9px) calc(50% - 1px), 0 0;
             background-size: 5px 5px, 5px 5px, 100% 100%;
@@ -207,28 +210,37 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             padding: 4px 28px 4px 8px;
             font-family: "JetBrains Mono", monospace;
             font-size: 13px;
-            border-radius: 4px 0 0 4px;
+            border-radius: 4px;
             outline: none;
             height: 30px;
             min-height: 30px;
             line-height: 20px;
             cursor: pointer;
         }
+        .nav-search select option {
+            background: #0a1210;
+            color: #c9ffd2;
+            padding: 4px 8px;
+        }
         .nav-search select option.grouping {
             font-weight: bold;
             color: #c9ffd2;
+        }
+        .nav-search .search-group {
+            display: flex;
+            align-items: center;
         }
         .nav-search input {
             background: linear-gradient(180deg, rgba(8, 18, 10, 0.98) 0%, rgba(6, 13, 8, 0.98) 100%);
             color: #c9ffd2;
             border: 1px solid rgba(88, 196, 102, 0.44);
-            border-left: none;
             padding: 4px 12px;
             font-family: "JetBrains Mono", monospace;
             font-size: 13px;
             width: 180px;
             outline: none;
             height: 30px;
+            border-radius: 4px 0 0 4px;
         }
         .nav-search input::placeholder { color: #4a5a6a; }
         .nav-search input:focus { border-color: var(--accent); }
@@ -487,8 +499,10 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                     <option value="8010">&nbsp;&nbsp;Other</option>
                     <option value="8050">&nbsp;&nbsp;Spam</option>
                 </select>
-                <input type="text" name="search" placeholder="Keyword Search">
-                <button type="submit"><i class="fas fa-search"></i></button>
+                <div class="search-group">
+                    <input type="text" name="search" placeholder="Keyword Search">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
             </form>
             <?php else: ?>
             <div class="nav-auth">
