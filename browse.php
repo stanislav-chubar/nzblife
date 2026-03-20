@@ -136,11 +136,16 @@ $extra_css = '<style>
         font-size: 13px;
     }
     .item-icons a:hover { color: #00e68a; }
+    .browse-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
 </style>';
 include __DIR__ . '/includes/header.php';
 ?>
 
     <div class="page-content">
+        <div class="browse-wrapper">
         <div class="browse-header">
             <h1>Browse &raquo; <?= e($cat_display) ?></h1>
             <span class="results-info"><?= count($sample_items) ?> results</span>
@@ -185,6 +190,7 @@ include __DIR__ . '/includes/header.php';
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     </div>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

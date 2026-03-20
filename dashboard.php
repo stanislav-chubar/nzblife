@@ -86,36 +86,42 @@ $extra_css = '<style>
         color: var(--accent);
         text-shadow: none;
     }
+    .dashboard-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+    }
 </style>';
 include __DIR__ . '/includes/header.php';
 ?>
 
     <div class="page-content">
-        <?= render_flash() ?>
+        <div class="dashboard-wrapper">
+            <?= render_flash() ?>
 
-        <div class="welcome-card">
-            <h1 class="welcome-heading">Welcome</h1>
+            <div class="welcome-card">
+                <h1 class="welcome-heading">Welcome</h1>
 
-            <p class="welcome-text">Please report any errors, missing or broken features to <?= e(CONTACT_EMAIL) ?></p>
+                <p class="welcome-text">Please report any errors, missing or broken features to <?= e(CONTACT_EMAIL) ?></p>
 
-            <p class="welcome-text">There's been a lot of changes, if you're having issues, please use the email above or post in the forum. We'll respond quickly to help resolve it.</p>
-        </div>
-
-        <div class="two-col">
-            <div class="info-box">
-                <h3>Upgrade Your Access</h3>
-                <p>Unlock more grabs, higher API limits, and premium tools with VIP or VIP+.</p>
-                <a href="vip.php" class="compare-btn">Compare VIP and VIP+ Features</a>
+                <p class="welcome-text">There's been a lot of changes, if you're having issues, please use the email above or post in the forum. We'll respond quickly to help resolve it.</p>
             </div>
-            <div class="info-box">
-                <h3>Recently Implemented</h3>
-                <ul class="feature-list">
-                    <li>Trending pages for Movies and TV with day/week filters</li>
-                    <li>Top Grabs quicklook updates and anime popular view improvements</li>
-                    <li>API/RSS query builders with guided summary output</li>
-                    <li>Forum updates with better category/thread flow and voting improvements</li>
-                    <li>Expanded media metadata refresh + preview modal support</li>
-                </ul>
+
+            <div class="two-col">
+                <div class="info-box">
+                    <h3>Upgrade Your Access</h3>
+                    <p>Unlock more grabs, higher API limits, and premium tools with VIP or VIP+.</p>
+                    <a href="vip.php" class="compare-btn">Compare VIP and VIP+ Features</a>
+                </div>
+                <div class="info-box">
+                    <h3>Recently Implemented</h3>
+                    <ul class="feature-list">
+                        <li>Trending pages for Movies and TV with day/week filters</li>
+                        <li>Top Grabs quicklook updates and anime popular view improvements</li>
+                        <li>API/RSS query builders with guided summary output</li>
+                        <li>Forum updates with better category/thread flow and voting improvements</li>
+                        <li>Expanded media metadata refresh + preview modal support</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

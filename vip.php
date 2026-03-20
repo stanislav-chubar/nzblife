@@ -114,11 +114,16 @@ $extra_css = '<style>
     .plan-card ul ul li {
         font-size: 13px;
     }
+    .vip-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 </style>';
 include __DIR__ . '/includes/header.php';
 ?>
 
     <div class="page-content">
+        <div class="vip-wrapper">
         <h1 class="plan-heading">Choose Plan</h1>
         <div class="plan-membership-box">Current Membership: <?= e($current_user['role_display']) ?></div>
         <p class="plan-subtitle">Choose VIP or VIP+ and continue to your payment method.</p>
@@ -182,6 +187,7 @@ include __DIR__ . '/includes/header.php';
                     </li>
                 </ul>
             </div>
+        </div>
         </div>
     </div>
 

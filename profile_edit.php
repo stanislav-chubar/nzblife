@@ -75,7 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$hide_notification = true;
 $extra_css = '<style>
+    .edit-card {
+        max-width: 900px;
+        margin: 0 auto;
+        border: 1px solid var(--card-border);
+        border-radius: 6px;
+        padding: 30px 36px;
+    }
+    .edit-card .notification-bar {
+        margin: 0 0 24px;
+    }
     .edit-heading {
         display: flex;
         align-items: center;
@@ -84,47 +95,53 @@ $extra_css = '<style>
         color: #c8c8c8;
         margin-bottom: 28px;
     }
-    .edit-heading i { color: #00e68a; }
-    .edit-section {
-        margin-bottom: 30px;
+    .edit-heading i { color: var(--accent); }
+    .edit-fieldset {
+        border: 1px solid var(--card-border);
+        border-radius: 4px;
+        padding: 24px 20px;
+        margin-bottom: 24px;
     }
-    .edit-section-header {
+    .edit-fieldset legend {
         color: #c8c8c8;
         font-size: 16px;
-        border-bottom: 1px solid #1a3a4a;
-        padding-bottom: 8px;
-        margin-bottom: 20px;
+        font-weight: bold;
+        padding: 0 10px;
     }
     .form-row {
         display: flex;
-        align-items: center;
-        margin-bottom: 16px;
+        align-items: flex-start;
+        margin-bottom: 0;
+        padding: 12px 0;
         gap: 16px;
+        border-bottom: 1px solid rgba(93, 255, 180, 0.08);
     }
+    .form-row:last-child { border-bottom: none; }
     .form-row label {
-        color: #8899aa;
+        color: #c8c8c8;
         font-size: 14px;
+        font-weight: bold;
         min-width: 160px;
         text-align: right;
+        padding-top: 10px;
     }
     .form-row .input-wrap {
         flex: 1;
-        max-width: 400px;
     }
     .form-row input {
         width: 100%;
-        background: #0a1525;
-        border: 1px solid #1a3a4a;
+        background: rgba(6, 14, 7, 0.6);
+        border: 1px solid var(--card-border);
         color: #c8c8c8;
         padding: 10px 14px;
-        font-family: "Share Tech Mono", monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 14px;
         border-radius: 4px;
         outline: none;
         transition: border-color 0.2s;
     }
-    .form-row input:focus { border-color: #00e68a; }
-    .form-row input::placeholder { color: #3a4a5a; }
+    .form-row input:focus { border-color: var(--accent); }
+    .form-row input::placeholder { color: #4a5a6a; }
     .form-row .input-icon {
         position: relative;
     }
@@ -133,106 +150,118 @@ $extra_css = '<style>
         left: 12px;
         top: 50%;
         transform: translateY(-50%);
-        color: #00e68a;
+        color: var(--accent);
         font-size: 14px;
     }
     .form-row .input-icon input { padding-left: 38px; }
     .field-hint {
         color: #5a6a7a;
-        font-size: 11px;
-        margin-top: 4px;
+        font-size: 12px;
+        margin-top: 6px;
     }
     .site-prefs-notice {
-        background: rgba(0,230,138,0.08);
-        border: 1px solid #1a5a3a;
+        background: rgba(61, 255, 158, 0.06);
+        border: 1px solid rgba(93, 255, 180, 0.3);
         border-radius: 4px;
         padding: 14px 18px;
-        color: #00e68a;
+        color: var(--accent);
         font-size: 13px;
     }
+    .site-prefs-notice a { color: var(--link); }
     .save-btn {
         display: inline-block;
         padding: 10px 30px;
-        background: #0d2137;
-        border: 1px solid #1a3a4a;
+        background: linear-gradient(180deg, rgba(17, 26, 39, 0.95), rgba(11, 17, 26, 0.96));
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 4px;
-        color: #c8c8c8;
-        font-family: "Share Tech Mono", monospace;
+        color: var(--text);
+        font-family: "JetBrains Mono", monospace;
         font-size: 14px;
         cursor: pointer;
         transition: all 0.15s;
     }
     .save-btn:hover {
-        background: rgba(0,230,138,0.1);
-        border-color: #00e68a;
-        color: #00e68a;
+        background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
+        border-color: rgba(100, 210, 114, 0.42);
+        color: var(--accent);
     }
 </style>';
 include __DIR__ . '/includes/header.php';
 ?>
 
     <div class="page-content">
-        <?= render_flash() ?>
-
-        <h1 class="edit-heading">
-            <i class="fas fa-pen"></i> Edit your profile
-        </h1>
-
-        <?php if ($error): ?>
-            <div class="flash flash-error"><?= e($error) ?></div>
-        <?php endif; ?>
-        <?php if ($success): ?>
-            <div class="flash flash-success"><?= e($success) ?></div>
-        <?php endif; ?>
-
-        <form method="POST" action="profile_edit.php">
-            <?= csrf_input() ?>
-
-            <div class="edit-section">
-                <h2 class="edit-section-header">User Details</h2>
-
-                <div class="form-row">
-                    <label>Username</label>
-                    <div class="input-wrap input-icon">
-                        <i class="fas fa-user"></i>
-                        <input type="text" name="username" value="<?= e($current_user['username']) ?>" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label>Email</label>
-                    <div class="input-wrap input-icon">
-                        <i class="fas fa-at"></i>
-                        <input type="email" name="email" value="<?= e($current_user['email']) ?>" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label>Password</label>
-                    <div class="input-wrap input-icon">
-                        <i class="fas fa-key"></i>
-                        <input type="password" name="password" placeholder="Only enter your password if you want to change it.">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <label>Confirm Password</label>
-                    <div class="input-wrap input-icon">
-                        <i class="fas fa-key"></i>
-                        <input type="password" name="confirm_password" placeholder="">
-                    </div>
-                </div>
+        <div class="edit-card">
+            <?php if (isset($current_user) && $current_user): ?>
+            <div class="notification-bar" id="notificationBar">
+                Thank you for registering, please feel free to look around. You cannot download or use the API without an upgraded account (<a href="vip.php">upgrade your account</a>). Free accounts are automatically removed after a few days.
+                <span class="dismiss" onclick="document.getElementById('notificationBar').style.display='none'">Dismiss</span>
             </div>
+            <?php endif; ?>
 
-            <div class="edit-section">
-                <h2 class="edit-section-header">Site Preferences</h2>
-                <div class="site-prefs-notice">
-                    Your profile is restricted until you upgrade your account.
-                </div>
-            </div>
+            <?= render_flash() ?>
 
-            <button type="submit" class="save-btn">Save Profile</button>
-        </form>
+            <h1 class="edit-heading">
+                <i class="fas fa-user"></i> Edit your profile
+            </h1>
+
+            <?php if ($error): ?>
+                <div class="flash flash-error"><?= e($error) ?></div>
+            <?php endif; ?>
+            <?php if ($success): ?>
+                <div class="flash flash-success"><?= e($success) ?></div>
+            <?php endif; ?>
+
+            <form method="POST" action="profile_edit.php">
+                <?= csrf_input() ?>
+
+                <fieldset class="edit-fieldset">
+                    <legend>User Details</legend>
+
+                    <div class="form-row">
+                        <label>Username</label>
+                        <div class="input-wrap">
+                            <input type="text" name="username" value="<?= e($current_user['username']) ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Email</label>
+                        <div class="input-wrap input-icon">
+                            <i class="fas fa-at"></i>
+                            <input type="email" name="email" value="<?= e($current_user['email']) ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Password</label>
+                        <div class="input-wrap">
+                            <div class="input-icon">
+                                <i class="fas fa-asterisk"></i>
+                                <input type="password" name="password">
+                            </div>
+                            <div class="field-hint">Only enter your password if you want to change it.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Confirm Password</label>
+                        <div class="input-wrap input-icon">
+                            <i class="fas fa-asterisk"></i>
+                            <input type="password" name="confirm_password">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="edit-fieldset">
+                    <legend>Site Preferences</legend>
+                    <div class="site-prefs-notice">
+                        Your profile is restricted until you <a href="vip.php">upgrade your account</a>.
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="save-btn">Save Profile</button>
+            </form>
+        </div>
     </div>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
