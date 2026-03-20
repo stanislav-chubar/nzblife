@@ -90,7 +90,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             gap: 6px;
         }
         .nav-item:hover {
-            color: var(--accent);
+            color: #ffffff;
             text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
         }
         /* Open state for dropdown toggle */
