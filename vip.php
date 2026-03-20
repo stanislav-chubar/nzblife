@@ -10,18 +10,20 @@ $extra_css = '<style>
     .plan-heading {
         font-size: 24px;
         color: #c8c8c8;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
     }
-    .plan-membership {
+    .plan-membership-box {
+        border: 1px solid var(--card-border);
+        border-radius: 4px;
+        padding: 12px 18px;
+        margin-bottom: 16px;
+        color: #c8c8c8;
+        font-size: 14px;
+    }
+    .plan-subtitle {
         color: #8899aa;
         font-size: 14px;
-        margin-bottom: 6px;
-    }
-    .plan-membership strong { color: #00e68a; }
-    .plan-subtitle {
-        color: #5a6a7a;
-        font-size: 13px;
-        margin-bottom: 30px;
+        margin-bottom: 24px;
     }
 
     .plan-columns {
@@ -34,82 +36,83 @@ $extra_css = '<style>
     }
 
     .plan-card {
-        background: #0d2137;
-        border: 1px solid #1a3a4a;
+        border: 1px solid var(--card-border);
         border-radius: 6px;
         padding: 28px;
+        position: relative;
     }
     .plan-card h2 {
         color: #c8c8c8;
-        font-size: 20px;
-        margin-bottom: 6px;
-        text-align: center;
+        font-size: 18px;
+        margin-bottom: 16px;
+        display: inline-block;
+        border: 1px solid var(--card-border);
+        padding: 4px 16px;
+        border-radius: 4px;
+        background: rgba(6, 10, 16, 0.95);
+        position: relative;
+        top: -42px;
+        margin-bottom: -24px;
     }
     .plan-card .plan-type {
-        text-align: center;
-        color: #5a6a7a;
-        font-size: 12px;
+        color: #c8c8c8;
+        font-size: 14px;
         margin-bottom: 20px;
     }
     .plan-card .plan-buttons {
         display: flex;
-        gap: 8px;
-        justify-content: center;
+        gap: 10px;
         margin-bottom: 22px;
     }
     .plan-btn-yellow {
         background: #e6a800;
         color: #0b1a2a;
-        padding: 8px 16px;
+        padding: 10px 20px;
         border: none;
         border-radius: 4px;
-        font-family: "Share Tech Mono", monospace;
-        font-size: 12px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
         font-weight: bold;
         cursor: pointer;
+        transition: background 0.15s;
     }
     .plan-btn-yellow:hover { background: #ffbf00; }
     .plan-btn-green {
         background: #00e68a;
         color: #0b1a2a;
-        padding: 8px 16px;
+        padding: 10px 20px;
         border: none;
         border-radius: 4px;
-        font-family: "Share Tech Mono", monospace;
-        font-size: 12px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
         font-weight: bold;
         cursor: pointer;
+        transition: background 0.15s;
     }
     .plan-btn-green:hover { background: #33ffaa; }
 
     .plan-card .plan-label {
-        color: #8899aa;
-        font-size: 13px;
+        color: #c8c8c8;
+        font-size: 14px;
+        font-weight: bold;
         margin-bottom: 12px;
     }
     .plan-card ul {
-        list-style: none;
-        padding: 0;
+        list-style: disc;
+        padding-left: 22px;
     }
     .plan-card ul li {
-        color: #8899aa;
-        font-size: 13px;
-        padding: 4px 0;
-        padding-left: 20px;
-        position: relative;
-    }
-    .plan-card ul li::before {
-        content: "\\2713";
-        color: #00e68a;
-        position: absolute;
-        left: 0;
-    }
-    .plan-card .plan-section-title {
         color: #c8c8c8;
         font-size: 14px;
-        margin: 16px 0 10px;
-        border-bottom: 1px solid #1a3a4a;
-        padding-bottom: 6px;
+        padding: 3px 0;
+    }
+    .plan-card ul ul {
+        list-style: circle;
+        padding-left: 22px;
+        margin-top: 4px;
+    }
+    .plan-card ul ul li {
+        font-size: 13px;
     }
 </style>';
 include __DIR__ . '/includes/header.php';
@@ -117,8 +120,8 @@ include __DIR__ . '/includes/header.php';
 
     <div class="page-content">
         <h1 class="plan-heading">Choose Plan</h1>
-        <p class="plan-membership">Current Membership: <strong><?= e($current_user['role_display']) ?></strong></p>
-        <p class="plan-subtitle">Choose VIP or VIPs and continue to your payment method.</p>
+        <div class="plan-membership-box">Current Membership: <?= e($current_user['role_display']) ?></div>
+        <p class="plan-subtitle">Choose VIP or VIP+ and continue to your payment method.</p>
 
         <div class="plan-columns">
             <!-- VIP Plan -->
@@ -127,54 +130,56 @@ include __DIR__ . '/includes/header.php';
                 <p class="plan-type">Standard paid access plan.</p>
 
                 <div class="plan-buttons">
-                    <button class="plan-btn-yellow" onclick="alert('Payment integration coming soon.')">Buy with Card (USD)</button>
-                    <button class="plan-btn-green" onclick="alert('Payment integration coming soon.')">Buy with Crypto (USD)</button>
+                    <button class="plan-btn-yellow" onclick="alert('Payment integration coming soon.')">Pay with Card (VIP)</button>
+                    <button class="plan-btn-green" onclick="alert('Payment integration coming soon.')">Pay with Crypto (VIP)</button>
                 </div>
 
-                <p class="plan-label">VIP Features:</p>
+                <p class="plan-label">VIP Features</p>
                 <ul>
                     <li>More releases shown</li>
-                    <li>NZB/RSS: access up to 1,000 queries per day</li>
-                    <li>Top 10 curated Movies/TV pages</li>
-                    <li>Trending Movies, TV, music</li>
-                    <li>Popular Online Quickbox page</li>
-                    <li>Enhanced UI (Cover cards, info, posters, images, previews)</li>
-                    <li>Add/use on Webhooks</li>
+                    <li>Downloads: up to 600 per day</li>
+                    <li>API/RSS access: up to 5,000 queries per day</li>
+                    <li>Theme selection</li>
+                    <li>Top and recent Movie/TV pages</li>
+                    <li>Trending Movies, TV, Adult</li>
+                    <li>Popular Anime Quicklook page</li>
+                    <li>Enhanced UI (hover cards, info, posters, images, previews)</li>
+                    <li>MyShows and MyMovies</li>
                     <li>Invites when registration is closed</li>
-                    <li>All processing Credits</li>
-                    <li>VeNoMz, bObOoZ, FiXie/FaN integrations</li>
-                    <li>View comments in list</li>
-                    <li>Exclude categories you don't want to see</li>
+                    <li>UI preferences (views)</li>
+                    <li>SABnzbd, NZBGet, NZBVortex integrations</li>
+                    <li>View all categories</li>
+                    <li>Exclude categories you don&rsquo;t want to see</li>
                 </ul>
             </div>
 
-            <!-- VIPs Plan -->
+            <!-- VIP+ Plan -->
             <div class="plan-card">
-                <h2>VIPs</h2>
+                <h2>VIP+</h2>
                 <p class="plan-type">Higher limits and all advanced features.</p>
 
                 <div class="plan-buttons">
-                    <button class="plan-btn-yellow" onclick="alert('Payment integration coming soon.')">Buy with Card (USD)</button>
-                    <button class="plan-btn-green" onclick="alert('Payment integration coming soon.')">Buy with Crypto (USD)</button>
+                    <button class="plan-btn-yellow" onclick="alert('Payment integration coming soon.')">Pay with Card (VIP+)</button>
+                    <button class="plan-btn-green" onclick="alert('Payment integration coming soon.')">Pay with Crypto (VIP+)</button>
                 </div>
 
-                <p class="plan-label">VIPs Features:</p>
+                <p class="plan-label">VIP+ Features</p>
                 <ul>
                     <li>Everything in VIP</li>
-                    <li>Bandwidth: no 1,300 NZB max</li>
-                    <li>NZB/RSS: access up to 10,000 queries per day</li>
-                    <li>VIPs Query Builder access (API help page)</li>
-                    <li>Advanced Search All/TV, Including:</li>
-                </ul>
-
-                <p class="plan-section-title">Advanced Search Features</p>
-                <ul>
-                    <li>Category and release filtering</li>
-                    <li>Partial date filtering</li>
-                    <li>Include group filtering</li>
-                    <li>VIPs only categories</li>
-                    <li>Mass/multiple downloading</li>
-                    <li>View Comments</li>
+                    <li>Downloads: up to 1,200 per day</li>
+                    <li>API/RSS access: up to 10,000 queries per day</li>
+                    <li>API Query Builder access (API Help page)</li>
+                    <li>RSS Query Builder access (RSS Help page)</li>
+                    <li>Advanced Search access (web UI), including:
+                        <ul>
+                            <li>Release name and filename matching</li>
+                            <li>Category and resolution filters</li>
+                            <li>Posted date range filtering</li>
+                            <li>Minimum grabs filtering</li>
+                            <li>Season/episode match filtering</li>
+                            <li>Size range filtering</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
