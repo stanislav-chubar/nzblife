@@ -81,7 +81,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         .nav-item {
             position: relative;
             padding: 14px 14px;
-            color: var(--text-muted);
+            color: var(--link);
             font-size: 14px;
             cursor: pointer;
             transition: color 0.15s, background 0.15s;
@@ -91,6 +91,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
         }
         .nav-item:hover {
             color: var(--accent);
+            text-shadow: 0 0 12px rgba(61, 255, 158, 0.35);
         }
         .nav-item i.fa-caret-down { font-size: 10px; }
         .nav-dropdown {
@@ -104,6 +105,7 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             min-width: 180px;
             z-index: 999;
             box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            padding: 4px 0;
         }
         .nav-dropdown.open { display: block; }
         .nav-dropdown a {
@@ -111,10 +113,10 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
             padding: 10px 16px;
             color: #c8c8c8;
             font-size: 13px;
-            transition: background 0.15s;
+            transition: background 0.15s, color 0.15s;
         }
         .nav-dropdown a:hover {
-            background: rgba(61, 255, 158, 0.08);
+            background: linear-gradient(180deg, rgba(16, 40, 20, 0.96) 0%, rgba(10, 26, 13, 0.96) 100%);
             color: var(--accent);
             text-shadow: none;
         }
@@ -315,35 +317,43 @@ $show_notification = $is_logged_in && !($hide_notification ?? false);
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <i class="fas fa-th"></i> Movies <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="browse.php?cat=movies">All Movies</a>
-                        <a href="browse.php?cat=movies-hd">HD</a>
+                        <a href="browse.php?cat=movies">Browse All</a>
                         <a href="browse.php?cat=movies-sd">SD</a>
-                        <a href="browse.php?cat=movies-4k">4K/UHD</a>
+                        <a href="browse.php?cat=movies-hd">HD</a>
+                        <a href="browse.php?cat=movies-uhd">UHD</a>
+                        <a href="browse.php?cat=movies-foreign">Foreign</a>
+                        <a href="browse.php?cat=movies-other">Other</a>
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <i class="fas fa-desktop"></i> TV <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="browse.php?cat=tv">All TV</a>
-                        <a href="browse.php?cat=tv-hd">HD</a>
+                        <a href="browse.php?cat=tv">Browse All</a>
                         <a href="browse.php?cat=tv-sd">SD</a>
+                        <a href="browse.php?cat=tv-hd">HD</a>
+                        <a href="browse.php?cat=tv-uhd">UHD</a>
+                        <a href="browse.php?cat=tv-foreign">Foreign</a>
+                        <a href="browse.php?cat=tv-other">Other</a>
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <i class="fas fa-book"></i> Books <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="browse.php?cat=books">All Books</a>
+                        <a href="browse.php?cat=books">Browse All</a>
                         <a href="browse.php?cat=books-ebook">eBooks</a>
-                        <a href="browse.php?cat=books-audio">Audiobooks</a>
+                        <a href="browse.php?cat=books-comics">Comics</a>
+                        <a href="browse.php?cat=books-mags">Magazines</a>
+                        <a href="browse.php?cat=books-other">Other</a>
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
                     <i class="fas fa-th-large"></i> Misc <i class="fas fa-caret-down"></i>
                     <div class="nav-dropdown">
-                        <a href="browse.php?cat=misc">All Misc</a>
+                        <a href="browse.php?cat=misc">Browse All</a>
                         <a href="browse.php?cat=misc-games">Games</a>
                         <a href="browse.php?cat=misc-apps">Apps</a>
                         <a href="browse.php?cat=misc-audio">Music</a>
+                        <a href="browse.php?cat=misc-other">Other</a>
                     </div>
                 </div>
                 <div class="nav-item" onclick="toggleDropdown(this)">
